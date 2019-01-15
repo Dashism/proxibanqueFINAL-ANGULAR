@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { SurveyService } from './survey.service';
+import { Survey } from './survey';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,13 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.service.check().subscribe();
+    this.service.check().subscribe( (survey: Survey) => {
+      if (survey != null) {
+        this.isSurvey = true;
+      } else {
+        this.isSurvey = false;
+      }
+    });
   }
 
 

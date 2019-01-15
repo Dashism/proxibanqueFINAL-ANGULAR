@@ -1,3 +1,33 @@
-<p>
-  survey-comp works!
-</p>
+<h1>Voudriez-vous adhérer à un service d’assurance automobile Proxibanque?</h1>
+<div [ngSwitch]="switchExpression">
+
+  <div *ngSwitchCase="0">
+    <label for="img">
+      <img class="img1" src="./assets/thumbs_up.png" id="img" (click)="thumbsUp()">
+    </label>
+
+    <label for="img">
+      <img class="img2" src="./assets/thumbs_down.png" id="img2" (click)="thumbsDown()">
+    </label>
+
+  </div>
+  <div *ngSwitchCase="1">
+    <form (ngSubmit)="validateForm(clientForm)" #clientForm="ngForm">
+      <div class="form-group">
+        <label for="serialNumber">Entrez votre numéro d'identifiant </label>
+        <input type="string" [(ngModel)]="client.serialNumber" id="serialNumber" name="serialNumber" class="form-control">
+      </div>
+    </form>
+
+  </div>
+
+  <div *ngSwitchCase="2">
+    <form (ngSubmit)="validateForm(opinionForm)" #opinionForm="ngForm">
+      <div class="form-group">
+        <label for="commentary">Entrez votre commentaire </label>
+        <input class="form-control" type="string" [(ngModel)]="opinion.commentary" id="commentary" name="commentary" class="form-control">
+        <button class="btn btn-success"> Valider </button>
+      </div>
+    </form>
+
+  </div>

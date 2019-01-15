@@ -1,0 +1,23 @@
+img {
+    width: 100px;
+    padding: 0px 0px;
+    transition: 2s;
+}
+
+img:hover {
+    padding: 20px;
+    transition: 2s;
+}
+
+h1 {
+    font-family: 'Staatliches', cursive;
+    margin: 10%;
+}
+
+img.img1 {
+    margin-left: 600px;
+}
+
+img.img2 {
+    margin-left: 50px;
+}
