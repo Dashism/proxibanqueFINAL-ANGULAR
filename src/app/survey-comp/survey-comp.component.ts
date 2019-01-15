@@ -27,6 +27,7 @@ export class SurveyCompComponent implements OnInit {
     this.switchExpression = 0;
     this.client = new Client(undefined, undefined, undefined, undefined, undefined, undefined);
     this.opinion = new Opinion(undefined, undefined, undefined);
+    this.survey = new Survey(undefined, undefined, undefined, undefined);
   }
 
   ngOnInit() {
@@ -40,8 +41,27 @@ export class SurveyCompComponent implements OnInit {
     this.switchExpression = 2;
   }
 
-  public validateForm(myForm: NgForm) {
-    this.service.create(this.opinion);
+  public validateNeg(myForm: NgForm) {
+
+    this.service.create(this.opinion).subscribe(() => {
+      console.log('Avis négatif, crée avec succès dans BDD !');
+    });
+    myForm.resetForm(new Opinion(null, null, null));
+  }
+
+  public validatePos(myForm: NgForm) {
+
+    this.opinion.survey = this.survey;
+    this.service.checkClient(this.customer.clientNumber).subscribe((customer) => {
+      this.opinion.customer = customer;
+      this.service.create(this.opinion).subscribe(() => {
+        console.log('Avis positif, créé avec succès sur BDD !');
+      });
+      this.getDays();
+    });
+
+    myForm.resetForm(new Opinion(null, null));
   }
 
 }
+
