@@ -1,0 +1,8 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="background">
+    <app-survey-comp *ngIf="isSurvey; else elseFromTpl"></app-survey-comp>
+    <ng-template #elseFromTpl>
+        <app-quotation></app-quotation>
+    </ng-template>
+    
+</div>
