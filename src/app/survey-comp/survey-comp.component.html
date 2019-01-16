@@ -11,11 +11,11 @@
     </label>
 
   </div>
-  <div classe="pos" *ngSwitchCase="1" class="presentation">
+  <div *ngSwitchCase="1" class="presentation">
     <div class="presentation2">
       <form (ngSubmit)="validatePos(clientForm)" #clientForm="ngForm">
         <div class="form-group">
-          <label class="text1" for="serialNumber">Entrez votre numéro d'identifiant </label>
+          <label for="serialNumber">Entrez votre numéro d'identifiant </label>
           <br>
           <input [(ngModel)]="client.serialNumber" id="serialNumber" name="serialNumber" class="form-control">
           <div *ngIf="isOk">
