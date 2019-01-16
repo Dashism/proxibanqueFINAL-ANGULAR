@@ -19,8 +19,15 @@
           <br>
           <input [(ngModel)]="client.serialNumber" id="serialNumber" name="serialNumber" class="form-control">
           <div *ngIf="isOk">
+              <div *ngIf="verif ; else elseFromTpl">
             <h4>Vous serez contacté(e) dans un délai {{ calculJours }} de jours
               par un de nos conseillers expert en assurance auto.</h4>
+              </div>
+              <ng-template #elseFromTpl>
+                <h2> 
+                Merci d'avoir participé à ce sondage, n'hésitez pas à venir nous voir.     
+              </h2>      
+              </ng-template>
           </div>
           <br>
           <button (click)="onNumberValidated()" class="btn btn-success"> Valider </button>

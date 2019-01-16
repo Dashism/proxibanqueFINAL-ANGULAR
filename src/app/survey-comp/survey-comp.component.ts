@@ -23,8 +23,7 @@ export class SurveyCompComponent implements OnInit {
   opinion: Opinion;
   isOk: boolean;
   calculJours: number;
-  date: Date;
-
+  verif: boolean;
 
   constructor(private service: SurveyService) {
     this.wsUrl = ENV.apiUrl + '/survey';
@@ -35,6 +34,7 @@ export class SurveyCompComponent implements OnInit {
     this.survey = new Survey(undefined, undefined, undefined, undefined);
     this.isOk = false;
     this.calculJours = 0;
+    this.verif = true;
   }
 
   // Récupèration du sondage en cours avec la méthode getSurvey() du service.
@@ -65,7 +65,6 @@ export class SurveyCompComponent implements OnInit {
     this.isOk = true;
   }
 
-
   // Envoies des données utilisateurs(commentaire) dans la BDD grâce à la fonction subscribe().
   public validateNeg(myForm: NgForm) {
     this.opinion.survey = this.survey;
@@ -79,13 +78,20 @@ export class SurveyCompComponent implements OnInit {
   public validatePos(myForm: NgForm) {
     this.opinion.survey = this.survey;
     this.service.checkClient(this.client.serialNumber).subscribe((client) => {
-      this.opinion.client = client;
-      this.service.create(this.opinion).subscribe(() => {
-        console.log('Avis positif, créé avec succès sur BDD !');
-      });
-      this.getDays();
+      if (client) {
+        this.opinion.client = client;
+        this.service.create(this.opinion).subscribe(() => {
+          console.log('Avis positif du client enregistré créé avec succès sur BDD !');
+        });
+        this.getDays();
+      } else {
+        this.verif = false;
+        this.service.create(this.opinion).subscribe(() => {
+          console.log('Avis positif client non enregistré créé avec succès sur BDD !');
+        });
+      }
+      myForm.resetForm(new Opinion(null, null, null));
     });
-    myForm.resetForm(new Opinion(null, null, null));
   }
 
   // Calcule des jours restant avant la fin du sondage en cours.
