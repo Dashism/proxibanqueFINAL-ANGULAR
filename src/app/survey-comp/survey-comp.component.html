@@ -11,16 +11,17 @@
     </label>
 
   </div>
-  <div *ngSwitchCase="1">
+  <div classe="pos" *ngSwitchCase="1">
     <form (ngSubmit)="validatePos(clientForm)" #clientForm="ngForm">
       <div class="form-group">
-        <label for="serialNumber">Entrez votre numéro d'identifiant </label>
-        <input [(ngModel)]="client.serialNumber" id="serialNumber" name="serialNumber" class="form-control">
+        <label class="text1" for="serialNumber">Entrez votre numéro d'identifiant </label>
+        <br>
+        <input [(ngModel)]="client.serialNumber" id="serialNumber" name="serialNumber">
         <div *ngIf="isOk">
           <h4>Vous serez contacté(e) dans un délai {{calculJours}} de jours
             par un de nos conseillers expert en assurance auto</h4>
         </div>
-
+        <br>
         <button (click)="onNumberValidated()" class="btn btn-success"> Valider </button>
       </div>
     </form>
