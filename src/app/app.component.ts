@@ -8,6 +8,7 @@ import { Survey } from './survey';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+// Classe principale de l'application Angular définit sur la balise <app-root>
 export class AppComponent implements OnInit {
   isSurvey: boolean;
   title = 'proxibanqueFINAL-angular';
@@ -16,6 +17,7 @@ export class AppComponent implements OnInit {
     this.isSurvey = false;
   }
 
+  // Définit si un sondage est en cours ou non, et envoie vers la page correspondante.
   ngOnInit(): void {
     this.service.check().subscribe( (survey: Survey) => {
       if (survey != null) {

@@ -1,7 +1,7 @@
 <h1>Voudriez-vous adhérer à un service d’assurance automobile Proxibanque?</h1>
 <div [ngSwitch]="switchExpression">
 
-  <div *ngSwitchCase="0">
+  <div class="image" *ngSwitchCase="0">
     <label for="img">
       <img class="img1" src="./assets/thumbs_up.png" id="img" (click)="thumbsUp()">
     </label>
@@ -10,35 +10,54 @@
     </label>
   </div>
 
-  <div classe="pos" *ngSwitchCase="1">
-    <form (ngSubmit)="validatePos(clientForm)" #clientForm="ngForm">
-      <div class="form-group">
-        <label class="text1" for="serialNumber">Entrez votre numéro d'identifiant </label>
-        <br>
-        <input [(ngModel)]="client.serialNumber" id="serialNumber" name="serialNumber">
-        <div *ngIf="isOk">
-          <h4>Vous serez contacté(e) dans un délai {{ calculJours }} de jours
-            par un de nos conseillers expert en assurance auto</h4>
-        </div>
-        <br>
-        <button (click)="onNumberValidated()" class="btn btn-success"> Valider </button>
+
+
+
+
+  <div *ngSwitchCase="1">
+    <div class="presentation2">
+      <div *ngIf="!isOk">
+        <form (ngSubmit)="validatePos(clientForm)" #clientForm="ngForm">
+          <div class="form-group">
+            <label for="serialNumber">Entrez votre numéro d'identifiant, si vous possédez un compte ProxiBanque.
+            </label>
+            <br>
+            <input [(ngModel)]="client.serialNumber" id="serialNumber" name="serialNumber" class="form-control">
+            <br>
+            <button class="btn btn-success"> Valider </button>
+          </div>
+        </form>
       </div>
-    </form>
+      <div *ngIf="isOk">
+        <div *ngIf="verif ; else elseFromTpl">
+          <h4>Vous serez contacté(e) dans un délai de {{ calculJours }} jours
+            par un de nos conseillers expert en assurance auto.</h4>
+        </div>
+        <ng-template #elseFromTpl>
+          <h2>
+            Merci d'avoir participé à ce sondage, n'hésitez pas à venir nous voir.
+          </h2>
+        </ng-template>
+      </div>
+    </div>
   </div>
 
-  <div *ngSwitchCase="2" class="presentation">
-    <div class="presentation2">
+  <div *ngSwitchCase="2" class="presentation2">
+    <div *ngIf="!isOk" class="presentation2">
       <form (ngSubmit)="validateNeg(opinionForm)" #opinionForm="ngForm">
         <div class="form-group">
-          <label for="commentary">Entrez votre commentaire </label>
+          <label for="commentary">Entrez votre commentaire :</label>
           <br>
           <input [(ngModel)]="opinion.commentary" id="commentary" name="commentary" class="form-control">
-          <div *ngIf="isOk">
-            <h4>Merci d'avoir participer au sondage.</h4>
-          </div>
+
           <br>
-          <button (click)="onNumberValidated()" class="btn btn-success"> Valider </button>
+          <button class="btn btn-success"> Valider </button>
         </div>
       </form>
     </div>
+      <div *ngIf="isOk">
+        <h4>Merci d'avoir participer au sondage.</h4>
+      </div>
+    
   </div>
+</div>

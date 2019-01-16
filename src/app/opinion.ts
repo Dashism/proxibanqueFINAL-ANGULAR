@@ -1,6 +1,7 @@
 import { Survey } from './survey';
 import { Client } from './client';
 
+// Définition des attributs liés à une opinion d'un Sondage.
 export class Opinion {
     commentary: string;
     isThumbs: string;

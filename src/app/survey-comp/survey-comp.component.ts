@@ -13,6 +13,7 @@ import { SurveyService } from '../survey.service';
   templateUrl: './survey-comp.component.html',
   styleUrls: ['./survey-comp.component.css']
 })
+// Composant mettant en oeuvre l'affichage d'une page s'il y a un sondage en cours.
 export class SurveyCompComponent implements OnInit {
   wsUrl: string;
   survey: Survey;
@@ -22,8 +23,7 @@ export class SurveyCompComponent implements OnInit {
   opinion: Opinion;
   isOk: boolean;
   calculJours: number;
-  date: Date;
-
+  verif: boolean;
 
   constructor(private service: SurveyService) {
     this.wsUrl = ENV.apiUrl + '/survey';
@@ -34,52 +34,67 @@ export class SurveyCompComponent implements OnInit {
     this.survey = new Survey(undefined, undefined, undefined, undefined);
     this.isOk = false;
     this.calculJours = 0;
+    this.verif = true;
   }
 
+  // Récupèration du sondage en cours avec la méthode getSurvey() du service.
   ngOnInit() {
     this.survey = this.service.getSurvey();
     // this.calculJours = this.getDays();
   }
+
+  // Changements d'affichage dynamique en fonction du choix de l'utilisateur (évènement clique)
   public indexReturn() {
     this.switchExpression = 0;
   }
 
+  // Changements d'affichage dynamique en fonction du choix de l'utilisateur (évènement clique)
   public thumbsUp() {
     this.switchExpression = 1;
     this.opinion.isThumbs = '1';
-
-
   }
+
+  // Changements d'affichage dynamique en fonction du choix de l'utilisateur (évènement clique)
   public thumbsDown() {
     this.switchExpression = 2;
     this.opinion.isThumbs = '0';
   }
 
-  public onNumberValidated() {
-    this.isOk = true;
-  }
 
 
+  // Envoies des données utilisateurs(commentaire) dans la BDD grâce à la fonction subscribe().
   public validateNeg(myForm: NgForm) {
     this.opinion.survey = this.survey;
     this.service.create(this.opinion).subscribe(() => {
       console.log('Avis négatif, crée avec succès dans BDD !');
+      this.isOk = true;
     });
     myForm.resetForm(new Opinion(null, null, null));
   }
 
+  // Vérification des données utilisateurs(serialNumber) dans la BDD et ajout
   public validatePos(myForm: NgForm) {
     this.opinion.survey = this.survey;
     this.service.checkClient(this.client.serialNumber).subscribe((client) => {
-      this.opinion.client = client;
-      this.service.create(this.opinion).subscribe(() => {
-        console.log('Avis positif, créé avec succès sur BDD !');
-      });
-      this.getDays();
+      if (client) {
+        this.opinion.client = client;
+        this.service.create(this.opinion).subscribe(() => {
+          console.log('Avis positif du client enregistré créé avec succès sur BDD !');
+          this.isOk = true;
+        });
+        this.getDays();
+      } else {
+        this.verif = false;
+        this.service.create(this.opinion).subscribe(() => {
+          console.log('Avis positif client non enregistré créé avec succès sur BDD !');
+          this.isOk = true;
+        });
+      }
+      myForm.resetForm(new Opinion(null, null, null));
     });
-    myForm.resetForm(new Opinion(null, null, null));
   }
 
+  // Calcule des jours restant avant la fin du sondage en cours.
   getDays() {
     const newDate = new Date(this.survey.supposedFinishDate[0], this.survey.supposedFinishDate[1] - 1, this.survey.supposedFinishDate[2]);
     console.log(Date.now());
