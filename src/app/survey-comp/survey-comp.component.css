@@ -1,5 +1,21 @@
+h1 {
+    text-align: center;
+    color: coral;
+    margin: 10%;
+}
+
+div.presentation {
+	text-align: center;
+}
+
+div.presentation2 {
+	text-align: center;
+	width: 300px;
+	margin: auto;
+}
+
 img {
-    width: 100px;
+    width: 300px;
     padding: 0px 0px;
     transition: 2s;
 }
@@ -9,44 +25,10 @@ img:hover {
     transition: 2s;
 }
 
-h1 {
-    font-family: 'Staatliches', cursive;
-    margin: 10%;
-    margin-left: 350px;
-}
-
 img.img1 {
-    margin-left: 800px;
+    margin-left: 600px;
 }
 
 img.img2 {
     margin-left: 50px;
-}
-
-input {
-    margin-left: 700px;
-}
-
-div.pos {
-	width: 500px;
-	margin-left: 300px;
-}
-
-button.btn-success {
-    margin-left: 700px;
-    padding-left: 10px;
-    padding-right: 10px;
-    transition: 1s;
-}
-
-button.btn-success:hover {
-    padding-left: 40px;
-    padding-right: 40px;
-    margin-left: 700px;
-    transition: 1s;
-}
-
-label.text1 {
-    margin-left: 700px;
-    text-align: center;
 }
