@@ -20,6 +20,8 @@ export class SurveyCompComponent implements OnInit {
   serialNumber: string;
   client: Client;
   opinion: Opinion;
+  isOk: boolean;
+  calculJours: number;
 
   constructor(private service: SurveyService) {
     this.wsUrl = ENV.apiUrl + '/survey';
@@ -28,17 +30,28 @@ export class SurveyCompComponent implements OnInit {
     this.client = new Client(undefined, undefined, undefined, undefined, undefined, undefined);
     this.opinion = new Opinion(undefined, undefined, undefined);
     this.survey = new Survey(undefined, undefined, undefined, undefined);
+    this.isOk = false;
+    this.calculJours = 0;
   }
 
   ngOnInit() {
     this.survey = this.service.getSurvey();
+    // this.calculJours = this.getDays();
   }
+  public indexReturn() {
+    this.switchExpression = 0;
+  }
+
   public thumbsUp() {
     this.switchExpression = 1;
 
   }
   public thumbsDown() {
     this.switchExpression = 2;
+  }
+
+  public onNumberValidated() {
+    this.isOk = true;
   }
 
   public validateNeg(myForm: NgForm) {
@@ -50,18 +63,29 @@ export class SurveyCompComponent implements OnInit {
   }
 
   public validatePos(myForm: NgForm) {
-
     this.opinion.survey = this.survey;
-    this.service.checkClient(this.customer.clientNumber).subscribe((customer) => {
-      this.opinion.customer = customer;
+
+    this.service.checkClient(this.client.serialNumber).subscribe((client) => {
+      this.opinion.client = client;
       this.service.create(this.opinion).subscribe(() => {
         console.log('Avis positif, créé avec succès sur BDD !');
       });
       this.getDays();
     });
-
-    myForm.resetForm(new Opinion(null, null));
+    myForm.resetForm(new Opinion(null, null, null));
   }
+
+  getDays(): number {
+    console.log(Date.now());
+    console.log(this.survey.supposedFinishDate.getTime());
+    const reste = this.survey.supposedFinishDate.getTime() - Date.now();
+    const calculJours = Math.ceil(reste / (1000 * 60 * 60 * 24));
+    return calculJours;
+  }
+
+
+
+
 
 }
 

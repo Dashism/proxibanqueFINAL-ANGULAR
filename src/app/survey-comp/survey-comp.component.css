@@ -12,10 +12,11 @@ img:hover {
 h1 {
     font-family: 'Staatliches', cursive;
     margin: 10%;
+    margin-left: 350px;
 }
 
 img.img1 {
-    margin-left: 600px;
+    margin-left: 800px;
 }
 
 img.img2 {

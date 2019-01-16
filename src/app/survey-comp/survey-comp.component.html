@@ -15,7 +15,13 @@
     <form (ngSubmit)="validatePos(clientForm)" #clientForm="ngForm">
       <div class="form-group">
         <label for="serialNumber">Entrez votre numéro d'identifiant </label>
-        <input type="string" [(ngModel)]="client.serialNumber" id="serialNumber" name="serialNumber" class="form-control">
+        <input [(ngModel)]="client.serialNumber" id="serialNumber" name="serialNumber" class="form-control">
+        <div *ngIf="isOk">
+          <h4>Vous serez contacté(e) dans un délai {{calculJours}} de jours
+            par un de nos conseillers expert en assurance auto</h4>
+        </div>
+
+        <button (click)="onNumberValidated()" class="btn btn-success"> Valider </button>
       </div>
     </form>
 
@@ -25,8 +31,11 @@
     <form (ngSubmit)="validateNeg(opinionForm)" #opinionForm="ngForm">
       <div class="form-group">
         <label for="commentary">Entrez votre commentaire </label>
-        <input [(ngModel)]="opinion.commentary"  id="commentary" name="commentary" class="form-control">
-        <button class="btn btn-success"> Valider </button>
+        <input [(ngModel)]="opinion.commentary" id="commentary" name="commentary" class="form-control">
+        <button (click)="onNumberValidated()" class="btn btn-success"> Valider </button>
+        <div *ngIf="isOk">
+            <h4>Merci d'avoir participer au sondage.</h4>
+          </div>
       </div>
     </form>
 
