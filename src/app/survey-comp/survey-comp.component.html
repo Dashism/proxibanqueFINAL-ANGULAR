@@ -5,12 +5,11 @@
     <label for="img">
       <img class="img1" src="./assets/thumbs_up.png" id="img" (click)="thumbsUp()">
     </label>
-
     <label for="img">
       <img class="img2" src="./assets/thumbs_down.png" id="img2" (click)="thumbsDown()">
     </label>
-
   </div>
+
   <div classe="pos" *ngSwitchCase="1">
     <form (ngSubmit)="validatePos(clientForm)" #clientForm="ngForm">
       <div class="form-group">
