@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8080/proxibanqueFINAL/webservices'
+  apiUrl: 'http://localhost:8080/proxibanqueV4_Benoit_Bixente_Omar/webservices'
 };
 
 /*
