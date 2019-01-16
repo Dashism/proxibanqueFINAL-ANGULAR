@@ -10,7 +10,7 @@ import { QuotationComponent } from './quotation/quotation.component';
   declarations: [
     AppComponent,
     SurveyCompComponent,
-    QuotationComponent
+    QuotationComponent,
   ],
   imports: [
     BrowserModule,

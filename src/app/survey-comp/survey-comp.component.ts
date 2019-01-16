@@ -1,3 +1,4 @@
+import { Opinion } from './../opinion';
 import { NgForm } from '@angular/forms';
 import { Client } from './../client';
 import { environment as ENV } from './../../environments/environment';
@@ -5,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Survey } from '../survey';
 import { SurveyService } from '../survey.service';
-import { Opinion } from '../opinion';
 
 
 @Component({
@@ -34,7 +34,6 @@ export class SurveyCompComponent implements OnInit {
     this.survey = new Survey(undefined, undefined, undefined, undefined);
     this.isOk = false;
     this.calculJours = 0;
-    this.date = new Date;
   }
 
   ngOnInit() {
@@ -59,9 +58,10 @@ export class SurveyCompComponent implements OnInit {
   public onNumberValidated() {
     this.isOk = true;
   }
+  
 
   public validateNeg(myForm: NgForm) {
-
+    this.opinion.survey = this.survey;
     this.service.create(this.opinion).subscribe(() => {
       console.log('Avis négatif, crée avec succès dans BDD !');
     });
@@ -80,20 +80,13 @@ export class SurveyCompComponent implements OnInit {
     myForm.resetForm(new Opinion(null, null, null));
   }
 
-  getDays(): number {
-    const newDate = this.survey.supposedFinishDate[2] + '-' + this.survey.supposedFinishDate[1] +
-      '-' + this.survey.supposedFinishDate[0] + 'T:08:00:00+0100';
-      this.date = new Date(newDate);
+  getDays() {
+    const newDate = new Date(this.survey.supposedFinishDate[0], this.survey.supposedFinishDate[1] - 1, this.survey.supposedFinishDate[2]);
     console.log(Date.now());
-    console.log(this.date.getTime());
-    const reste = this.date.getTime() - Date.now();
-    const calculJours = Math.ceil(reste / (1000 * 60 * 60 * 24));
-    return calculJours;
+    console.log(newDate.getTime());
+    console.log(this.survey.supposedFinishDate);
+    const reste = newDate.getTime() - Date.now();
+    this.calculJours = Math.ceil(reste / (1000 * 60 * 60 * 24));
   }
-
-
-
-
-
 }
 
