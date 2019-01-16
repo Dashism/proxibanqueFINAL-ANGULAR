@@ -19,7 +19,7 @@
           <br>
           <input [(ngModel)]="client.serialNumber" id="serialNumber" name="serialNumber" class="form-control">
           <div *ngIf="isOk">
-            <h4>Vous serez contacté(e) dans un délai {{getDays()}} de jours
+            <h4>Vous serez contacté(e) dans un délai {{ calculJours }} de jours
               par un de nos conseillers expert en assurance auto.</h4>
           </div>
           <br>
@@ -27,21 +27,20 @@
         </div>
       </form>
     </div>
-  </div>
 
-  <div *ngSwitchCase="2" class="presentation">
-    <div class="presentation2">
-      <form (ngSubmit)="validateNeg(opinionForm)" #opinionForm="ngForm">
-        <div class="form-group">
-          <label for="commentary">Entrez votre commentaire :</label>
-          <br>
-          <input [(ngModel)]="opinion.commentary" id="commentary" name="commentary" class="form-control">
-          <div *ngIf="isOk">
-            <h4>Merci d'avoir participer au sondage.</h4>
+    <div *ngSwitchCase="2" class="presentation">
+      <div class="presentation2">
+        <form (ngSubmit)="validateNeg(opinionForm)" #opinionForm="ngForm">
+          <div class="form-group">
+            <label for="commentary">Entrez votre commentaire :</label>
+            <br>
+            <input [(ngModel)]="opinion.commentary" id="commentary" name="commentary" class="form-control">
+            <div *ngIf="isOk">
+              <h4>Merci d'avoir participer au sondage.</h4>
+            </div>
+            <br>
+            <button (click)="onNumberValidated()" class="btn btn-success"> Valider </button>
           </div>
-          <br>
-          <button (click)="onNumberValidated()" class="btn btn-success"> Valider </button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
-  </div>

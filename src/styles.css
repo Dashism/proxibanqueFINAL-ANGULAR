@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 body {
-    background-image: url('https://images.unsplash.com/photo-1491847352009-6db18bb24656?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1834&q=80');
+    background-image: url("./assets/background_angular.jpg");
     background-size: cover;
     background-position: 0%;
 }
