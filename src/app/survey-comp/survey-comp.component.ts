@@ -80,8 +80,15 @@ export class SurveyCompComponent implements OnInit {
     myForm.resetForm(new Opinion(null, null, null));
   }
 
+<<<<<<< HEAD
   getDays() {
     const newDate = new Date(this.survey.supposedFinishDate[0], this.survey.supposedFinishDate[1] - 1, this.survey.supposedFinishDate[2]);
+=======
+  getDays(): number {
+    const newDate = this.survey.supposedFinishDate[2] + '-' + this.survey.supposedFinishDate[1] +
+      '-' + this.survey.supposedFinishDate[0] + 'T:08:00:00+0100';
+    this.date = new Date(newDate);
+>>>>>>> db16c9991bed9595870ac65d7442e281a0416ae2
     console.log(Date.now());
     console.log(newDate.getTime());
     console.log(this.survey.supposedFinishDate);

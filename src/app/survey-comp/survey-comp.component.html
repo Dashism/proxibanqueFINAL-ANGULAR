@@ -27,16 +27,19 @@
     </form>
   </div>
 
-  <div *ngSwitchCase="2">
-    <form (ngSubmit)="validateNeg(opinionForm)" #opinionForm="ngForm">
-      <div class="form-group">
-        <label for="commentary">Entrez votre commentaire </label>
-        <input [(ngModel)]="opinion.commentary" id="commentary" name="commentary" class="form-control">
-        <button (click)="onNumberValidated()" class="btn btn-success"> Valider </button>
-        <div *ngIf="isOk">
+  <div *ngSwitchCase="2" class="presentation">
+    <div class="presentation2">
+      <form (ngSubmit)="validateNeg(opinionForm)" #opinionForm="ngForm">
+        <div class="form-group">
+          <label for="commentary">Entrez votre commentaire </label>
+          <br>
+          <input [(ngModel)]="opinion.commentary" id="commentary" name="commentary" class="form-control">
+          <div *ngIf="isOk">
             <h4>Merci d'avoir participer au sondage.</h4>
           </div>
-      </div>
-    </form>
-
+          <br>
+          <button (click)="onNumberValidated()" class="btn btn-success"> Valider </button>
+        </div>
+      </form>
+    </div>
   </div>
