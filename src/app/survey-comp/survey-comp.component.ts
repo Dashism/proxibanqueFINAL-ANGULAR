@@ -61,7 +61,7 @@ export class SurveyCompComponent implements OnInit {
   }
 
   public validateNeg(myForm: NgForm) {
-
+    this.opinion.survey = this.survey;
     this.service.create(this.opinion).subscribe(() => {
       console.log('Avis négatif, crée avec succès dans BDD !');
     });
@@ -83,7 +83,7 @@ export class SurveyCompComponent implements OnInit {
   getDays(): number {
     const newDate = this.survey.supposedFinishDate[2] + '-' + this.survey.supposedFinishDate[1] +
       '-' + this.survey.supposedFinishDate[0] + 'T:08:00:00+0100';
-      this.date = new Date(newDate);
+    this.date = new Date(newDate);
     console.log(Date.now());
     console.log(this.date.getTime());
     const reste = this.date.getTime() - Date.now();
