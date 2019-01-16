@@ -13,6 +13,7 @@ import { Opinion } from '../opinion';
   templateUrl: './survey-comp.component.html',
   styleUrls: ['./survey-comp.component.css']
 })
+// Composant mettant en oeuvre l'affichage d'une page s'il y a un sondage en cours.
 export class SurveyCompComponent implements OnInit {
   wsUrl: string;
   survey: Survey;
@@ -37,29 +38,35 @@ export class SurveyCompComponent implements OnInit {
     this.date = new Date;
   }
 
+  // Récupèration du sondage en cours avec la méthode getSurvey() du service.
   ngOnInit() {
     this.survey = this.service.getSurvey();
     // this.calculJours = this.getDays();
   }
+
+  // Changements d'affichage dynamique en fonction du choix de l'utilisateur (évènement clique)
   public indexReturn() {
     this.switchExpression = 0;
   }
 
+  // Changements d'affichage dynamique en fonction du choix de l'utilisateur (évènement clique)
   public thumbsUp() {
     this.switchExpression = 1;
     this.opinion.isThumbs = '1';
-
-
   }
+
+  // Changements d'affichage dynamique en fonction du choix de l'utilisateur (évènement clique)
   public thumbsDown() {
     this.switchExpression = 2;
     this.opinion.isThumbs = '0';
   }
 
+  // Afficher les messages de validation quand l'utilisateur valide son formulaire
   public onNumberValidated() {
     this.isOk = true;
   }
 
+  // Envoies des données utilisateurs(commentaire) dans la BDD grâce à la fonction subscribe().
   public validateNeg(myForm: NgForm) {
     this.opinion.survey = this.survey;
     this.service.create(this.opinion).subscribe(() => {
@@ -68,6 +75,7 @@ export class SurveyCompComponent implements OnInit {
     myForm.resetForm(new Opinion(null, null, null));
   }
 
+  // Vérification des données utilisateurs(serialNumber) dans la BDD et ajout
   public validatePos(myForm: NgForm) {
     this.opinion.survey = this.survey;
     this.service.checkClient(this.client.serialNumber).subscribe((client) => {
@@ -80,6 +88,7 @@ export class SurveyCompComponent implements OnInit {
     myForm.resetForm(new Opinion(null, null, null));
   }
 
+  // Calcule des jours restant avant la fin du sondage en cours.
   getDays(): number {
     const newDate = this.survey.supposedFinishDate[2] + '-' + this.survey.supposedFinishDate[1] +
       '-' + this.survey.supposedFinishDate[0] + 'T:08:00:00+0100';
@@ -90,6 +99,8 @@ export class SurveyCompComponent implements OnInit {
     const calculJours = Math.ceil(reste / (1000 * 60 * 60 * 24));
     return calculJours;
   }
+
+
 
 
 

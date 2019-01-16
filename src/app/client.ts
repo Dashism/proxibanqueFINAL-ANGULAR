@@ -1,3 +1,4 @@
+// Définition des attributs liés à un client.
 export class Client {
         id: number;
         serialNumber: string;
