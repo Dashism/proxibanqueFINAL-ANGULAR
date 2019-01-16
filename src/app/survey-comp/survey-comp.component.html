@@ -17,7 +17,7 @@
         <label for="serialNumber">Entrez votre numéro d'identifiant </label>
         <input [(ngModel)]="client.serialNumber" id="serialNumber" name="serialNumber" class="form-control">
         <div *ngIf="isOk">
-          <h4>Vous serez contacté(e) dans un délai {{calculJours}} de jours
+          <h4>Vous serez contacté(e) dans un délai {{getDays()}} de jours
             par un de nos conseillers expert en assurance auto</h4>
         </div>
 

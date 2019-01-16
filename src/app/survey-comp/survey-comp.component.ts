@@ -22,6 +22,8 @@ export class SurveyCompComponent implements OnInit {
   opinion: Opinion;
   isOk: boolean;
   calculJours: number;
+  date: Date;
+
 
   constructor(private service: SurveyService) {
     this.wsUrl = ENV.apiUrl + '/survey';
@@ -32,6 +34,7 @@ export class SurveyCompComponent implements OnInit {
     this.survey = new Survey(undefined, undefined, undefined, undefined);
     this.isOk = false;
     this.calculJours = 0;
+    this.date = new Date;
   }
 
   ngOnInit() {
@@ -44,10 +47,13 @@ export class SurveyCompComponent implements OnInit {
 
   public thumbsUp() {
     this.switchExpression = 1;
+    this.opinion.isThumbs = '1';
+
 
   }
   public thumbsDown() {
     this.switchExpression = 2;
+    this.opinion.isThumbs = '0';
   }
 
   public onNumberValidated() {
@@ -64,7 +70,6 @@ export class SurveyCompComponent implements OnInit {
 
   public validatePos(myForm: NgForm) {
     this.opinion.survey = this.survey;
-
     this.service.checkClient(this.client.serialNumber).subscribe((client) => {
       this.opinion.client = client;
       this.service.create(this.opinion).subscribe(() => {
@@ -76,9 +81,12 @@ export class SurveyCompComponent implements OnInit {
   }
 
   getDays(): number {
+    const newDate = this.survey.supposedFinishDate[2] + '-' + this.survey.supposedFinishDate[1] +
+      '-' + this.survey.supposedFinishDate[0] + 'T:08:00:00+0100';
+      this.date = new Date(newDate);
     console.log(Date.now());
-    console.log(this.survey.supposedFinishDate.getTime());
-    const reste = this.survey.supposedFinishDate.getTime() - Date.now();
+    console.log(this.date.getTime());
+    const reste = this.date.getTime() - Date.now();
     const calculJours = Math.ceil(reste / (1000 * 60 * 60 * 24));
     return calculJours;
   }

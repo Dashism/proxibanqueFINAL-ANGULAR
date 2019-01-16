@@ -31,7 +31,7 @@ export class SurveyService {
     return this.survey;
   }
   public create(opinion: Opinion): Observable<Opinion> {
-    const newOpinion = new Opinion(undefined, opinion.commentary, '0');
+    const newOpinion = new Opinion( opinion.commentary, opinion.isThumbs , opinion.survey , opinion.client );
     return this.httpClient.post<Opinion>(this.opUrl, newOpinion);
   }
   public checkClient(serialNumber: string): Observable<Client> {
